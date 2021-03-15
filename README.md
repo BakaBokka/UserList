@@ -1,5 +1,5 @@
 # User List
- https://bakabokka.github.io/User-List/
+ https://bakabokka.github.io/UserList/
 
 
 ****
@@ -13,7 +13,7 @@
 
 
 ### How to try?
-* Clone repo: `git clone`  https://github.com/BakaBokka/User-List.git
+* Clone repo: `git clone`  https://github.com/BakaBokka/UserList.git
 * Set dependencies: `npm i`
 * Create production-build: `npm run build`
 * Runs the app in the development mode on the local server: `npm start`
