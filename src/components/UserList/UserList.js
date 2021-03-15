@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -7,6 +7,9 @@ import PersonIcon from "@material-ui/icons/Person";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import UserListItem from "../UserListItem/UserListItem";
+import withUserListService from "../HOC/withUserListService";
+import {usersLoaded} from "../../actions/actions";
+import {connect} from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
@@ -34,8 +37,14 @@ const useStyles = makeStyles({
   },
 });
 
-function UserList({ users }) {
+function UserList({users, getUsers, usersLoaded }) {
   const classes = useStyles();
+
+  useEffect(() => {
+    const data = getUsers();
+    usersLoaded(data)
+    // eslint-disable-next-line
+  }, [users])
 
   const userElement = users.map((user) => {
     return (
@@ -63,4 +72,12 @@ function UserList({ users }) {
   );
 }
 
-export default UserList;
+const mapStateToProps = ({users}) => {
+  return {users};
+};
+
+const mapDispatchToProps =  {
+  usersLoaded
+}
+
+export default withUserListService()(connect(mapStateToProps, mapDispatchToProps)(UserList));
