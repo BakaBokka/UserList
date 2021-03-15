@@ -1,6 +1,6 @@
 import React from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { Switch, Route, Link } from "react-router-dom";
+import { Switch, Route} from "react-router-dom";
 import MainPage from "./components/pages/MainPage";
 import UserPage from "./components/pages/UserPage";
 
@@ -11,7 +11,7 @@ function App() {
       <CssBaseline />
       <Switch>
         <Route path="/" component={MainPage} exact />
-        <Route path={process.env.PUBLIC_URL + '/user'} component={UserPage} />
+        <Route path="/user" component={UserPage} />
       </Switch>
     </div>
   );
