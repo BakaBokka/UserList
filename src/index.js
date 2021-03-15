@@ -13,7 +13,7 @@ import App from "./App";
 ReactDOM.render(
   <Provider store={store}>
     <UserListProvider value={getUsers}>
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <App />
       </Router>
     </UserListProvider>
