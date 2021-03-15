@@ -11,7 +11,7 @@ function App() {
       <CssBaseline />
       <Switch>
         <Route path="/" component={MainPage} exact />
-        <Route path="/user" component={UserPage} />
+        <Route path={process.env.PUBLIC_URL + '/user'} component={UserPage} />
       </Switch>
     </div>
   );
