@@ -9,26 +9,22 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     "@media (max-width: 660px)": {
-
       margin: "0 0 20px",
     },
-
   },
   title: {
     color: "#404040",
 
     "@media (max-width: 448px)": {
       fontSize: "1rem",
-
     },
   },
 
   text: {
     "@media (max-width: 448px)": {
       fontSize: "0.8rem",
-
     },
-  }
+  },
 });
 
 function UserListItem({ user }) {
@@ -38,8 +34,12 @@ function UserListItem({ user }) {
       <Typography className={classes.title} variant="h6" component="h3">
         {user.name}
       </Typography>
-      <Typography className={classes.text} variant="body1">{user.email}</Typography>
-      <Typography className={classes.text} variant="body1">Gender: {user.gender}</Typography>
+      <Typography className={classes.text} variant="body1">
+        {user.email}
+      </Typography>
+      <Typography className={classes.text} variant="body1">
+        Gender: {user.gender}
+      </Typography>
     </div>
   );
 }
