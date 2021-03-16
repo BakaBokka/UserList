@@ -14,8 +14,9 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   container: {
-    maxWidth: "50%",
+    maxWidth: "70%",
     width: "100%",
+
   },
   list: {
     maxWidth: "100%",
@@ -34,11 +35,39 @@ const useStyles = makeStyles({
     borderTopLeftRadius: "10px",
     margin: "0 0 10px",
     boxShadow: "5px 5px 5px -5px rgba(34, 60, 80, 0.6)",
+    display: "flex",
+    justifyContent: "space-between",
+    '@media (max-width: 660px)' : {
+      display: "flex",
+      flexDirection: "column",
+
+    },
+
   },
+  itemInfo: {
+    display: "flex",
+    alignItems: "center",
+    maxWidth: "100%",
+    width: "fit-content",
+    '@media (max-width: 440px)' : {
+      // display: "none",
+
+    }
+  },
+  icon: {
+    '@media (max-width: 440px)' : {
+      display: "none",
+
+
+    }
+  }
+
 });
+
 
 function UserList({users, getUsers, usersLoaded }) {
   const classes = useStyles();
+
 
   useEffect(() => {
     const data = getUsers();
@@ -49,16 +78,20 @@ function UserList({users, getUsers, usersLoaded }) {
   const userElement = users.map((user) => {
     return (
       <ListItem className={classes.item} key={user.id}>
-        <ListItemIcon>
+        <div className={classes.itemInfo} >
+        <ListItemIcon className={classes.icon} >
           <PersonIcon fontSize="large" />
         </ListItemIcon>
         <UserListItem user={user} />
+        </div>
+        <div>
         <ListItemIcon className={classes.iconButton}>
           <VisibilityIcon fontSize="large" />
         </ListItemIcon>
         <ListItemIcon className={classes.iconButton}>
           <HighlightOffIcon fontSize="large" />
         </ListItemIcon>
+        </div>
       </ListItem>
     );
   });
