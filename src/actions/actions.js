@@ -18,3 +18,11 @@ export const userDeleted = (userId) => {
     payload: userId
   }
 };
+
+export const userShown = (userId) => {
+  console.log(userId)
+  return {
+    type: "USER_SHOWN",
+    payload: userId
+  }
+}

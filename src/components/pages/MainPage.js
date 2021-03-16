@@ -19,6 +19,7 @@ const useStyles = makeStyles({
 function MainPage() {
   const classes = useStyles();
 
+
   return (
     <>
       <Container className={classes.container}>

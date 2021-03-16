@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import UserListItem from "../UserListItem/UserListItem";
 import AddUserModal from "../AddUserModal/AddUserModal";
 import withUserListService from "../HOC/withUserListService";
-import { usersLoaded, userAdded, userDeleted } from "../../actions/actions";
+import { usersLoaded, userAdded, userDeleted, userShown } from "../../actions/actions";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -54,14 +54,14 @@ const useStyles = makeStyles({
   },
 });
 
-function UserList({ users, getUsers, usersLoaded, handleAddUser, handleDelete }) {
+function UserList({ users, getUsers, usersLoaded, handleAddUser, handleDelete,handleUserShow }) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const data = users;
     usersLoaded(data);
-    
+
 
     // eslint-disable-next-line
   }, []);
@@ -80,7 +80,7 @@ function UserList({ users, getUsers, usersLoaded, handleAddUser, handleDelete })
           <UserListItem user={user} />
         </div>
         <div>
-          <IconButton to="/user" component={Link}>
+          <IconButton to="/user" component={Link} onClick={() => handleUserShow(user.id)}>
             <VisibilityIcon fontSize="large" />
           </IconButton>
           <IconButton onClick={()=> handleDelete(user.id)}>
@@ -124,7 +124,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     handleDelete: (userId) => {
       dispatch(userDeleted(userId))
-    }
+    },
+    handleUserShow: (userId) => {
+      dispatch(userShown(userId));
+    },
   };
 };
 
