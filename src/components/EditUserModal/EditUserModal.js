@@ -94,9 +94,9 @@ const EditUserModal = ({ open, setOpen, user, handleEditUser }) => {
 
   const handleClose = () => {
     setOpen(false);
-    setName("");
-    setEmail("");
-    setGender("");
+    // setName("");
+    // setEmail("");
+    // setGender("");
   };
 
   //Обработчики инпутов
@@ -113,9 +113,9 @@ const EditUserModal = ({ open, setOpen, user, handleEditUser }) => {
   const handleClick = () => {
     handleEditUser(editedUser);
     handleClose();
-    setName("");
-    setEmail("");
-    setGender("");
+    // setName("");
+    // setEmail("");
+    // setGender("");
   };
 
   const body = (
