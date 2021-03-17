@@ -17,6 +17,7 @@ const useStyles = makeStyles({
 
     "@media (max-width: 448px)": {
       fontSize: "1rem",
+      textAlign: "center"
     },
   },
 
@@ -24,6 +25,7 @@ const useStyles = makeStyles({
     wordBreak: "break-all",
     "@media (max-width: 448px)": {
       fontSize: "0.8rem",
+      textAlign: "center"
     },
   },
 });
