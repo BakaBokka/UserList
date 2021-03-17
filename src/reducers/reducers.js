@@ -21,7 +21,7 @@ const initialState = {
     {
       id: 4,
       name: "Tomlin Claybourne",
-      email: "tclaybourne3@huffingtonpost.com",
+      email: "tclaybourne3@huff.com",
       gender: "Male",
     },
     {
@@ -33,19 +33,23 @@ const initialState = {
     {
       id: 6,
       name: "Bernhard Nicholson",
-      email: "bnicholson5@buzzfeed.com",
+      email: "bn@buzzfeed.com",
       gender: "Male",
     },
   ],
 
+  filteredUsers: [
+
+  ],
+
   user: {
     name: "John",
-      email: "Doe",
-      gender: "Male",
+    email: "Doe",
+    gender: "Male",
   },
 };
 
-const filterUsers = (users, userId) => {
+const filterUsersById = (users, userId) => {
   return users.filter((user) => user.id !== userId);
 };
 
@@ -78,7 +82,7 @@ const reducer = (state = initialState, action) => {
     case "USER_UPDATED":
       const editedData = action.payload;
       const editedUser = findUser(state.users, editedData.id);
-      console.log(editedUser)
+      console.log(editedUser);
       const itemIndex = state.users.findIndex(
         (user) => user.id === editedData.id
       );
@@ -102,7 +106,7 @@ const reducer = (state = initialState, action) => {
       };
     case "USER_DELETED":
       const userId = action.payload;
-      const newUsers = filterUsers(state.users, userId);
+      const newUsers = filterUsersById(state.users, userId);
       return {
         ...state,
         users: newUsers,
@@ -116,6 +120,17 @@ const reducer = (state = initialState, action) => {
         user: showUser,
       };
 
+    case "USERS__FILTERED":
+      const userGender = action.payload;
+      const filteredUsers = state.users.filter(
+        (user) => user.gender === userGender
+      );
+
+      console.log(userGender)
+      return {
+        ...state,
+        filteredUsers: filteredUsers,
+      };
     default:
       return state;
   }

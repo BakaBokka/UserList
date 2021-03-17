@@ -8,16 +8,24 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import IconButton from "@material-ui/core/IconButton";
+import WcIcon from "@material-ui/icons/Wc";
 import { Link } from "react-router-dom";
 import UserListItem from "../UserListItem/UserListItem";
 import AddUserModal from "../AddUserModal/AddUserModal";
 import withUserListService from "../HOC/withUserListService";
-import { usersLoaded, userAdded, userDeleted, userShown } from "../../actions/actions";
+import {
+  usersLoaded,
+  userAdded,
+  userDeleted,
+  userShown,
+  usersFiltered,
+} from "../../actions/actions";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   container: {
+    position: "relative",
     maxWidth: "70%",
     width: "100%",
     display: "flex",
@@ -52,26 +60,51 @@ const useStyles = makeStyles({
       display: "none",
     },
   },
+  filterIcon : {
+    position: "absolute",
+    top:"30px",
+    right: "30px"
+
+  }
 });
 
-function UserList({ user, users, getUsers, usersLoaded, handleAddUser, handleDelete,handleUserShow }) {
+function UserList({
+  users,
+  filteredUsers,
+  getUsers,
+  usersLoaded,
+  handleAddUser,
+  handleDelete,
+  handleUserShow,
+  handleFilter,
+}) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [gender, setGender] = useState("");
 
   useEffect(() => {
-    const data = users;
-    usersLoaded(data);
-    user && handleUserShow(user.id)
-
-
+    usersLoaded(users);
     // eslint-disable-next-line
-  }, [user]);
+  }, [filteredUsers]);
+
+  useEffect(() => {
+    handleFilter(gender);
+    // eslint-disable-next-line
+  }, [gender]);
 
   const handleModal = () => {
     setOpen(true);
   };
 
-  const userElement = users.map((user) => {
+  const useFilter = () => {
+    if (gender === "") {
+      setGender("Male");
+    } else if (gender === "Male") {
+      setGender("Female");
+    } else setGender("");
+  };
+  const usersData = filteredUsers.length ? filteredUsers : users;
+  const userElement = usersData.map((user) => {
     return (
       <ListItem className={classes.item} key={user.id}>
         <div className={classes.itemInfo}>
@@ -81,24 +114,31 @@ function UserList({ user, users, getUsers, usersLoaded, handleAddUser, handleDel
           <UserListItem user={user} />
         </div>
         <div>
-          <IconButton to="/user" component={Link} onClick={() => handleUserShow(user.id)}>
+          <IconButton
+            to="/user"
+            component={Link}
+            onClick={() => handleUserShow(user.id)}
+          >
             <VisibilityIcon fontSize="large" />
           </IconButton>
-          <IconButton onClick={()=> handleDelete(user.id)}>
-            <HighlightOffIcon fontSize="large"/>
+          <IconButton onClick={() => handleDelete(user.id)}>
+            <HighlightOffIcon fontSize="large" />
           </IconButton>
         </div>
       </ListItem>
     );
   });
 
-
-
   return (
     <Box className={classes.container}>
+      <div>
       <IconButton color="default" onClick={handleModal}>
         <PersonAddIcon fontSize="large" />
       </IconButton>
+      <IconButton color="default" onClick={useFilter} >
+        <WcIcon fontSize="large" />
+      </IconButton>
+      </div>
       <List component="ul" className={classes.list}>
         {userElement}
       </List>
@@ -111,8 +151,8 @@ function UserList({ user, users, getUsers, usersLoaded, handleAddUser, handleDel
   );
 }
 
-const mapStateToProps = ({ users }) => {
-  return { users };
+const mapStateToProps = ({ users, filteredUsers }) => {
+  return { users, filteredUsers };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -124,10 +164,13 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(userAdded(newUser));
     },
     handleDelete: (userId) => {
-      dispatch(userDeleted(userId))
+      dispatch(userDeleted(userId));
     },
     handleUserShow: (userId) => {
       dispatch(userShown(userId));
+    },
+    handleFilter: (userGender) => {
+      dispatch(usersFiltered(userGender));
     },
   };
 };

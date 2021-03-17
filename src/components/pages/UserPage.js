@@ -35,7 +35,7 @@ const useStyles = makeStyles({
     boxSizing: "border-box",
     "@media (max-width: 600px)": {
       height: "50vh",
-      maxWidth: "90%",
+      // maxWidth: "90%",
       padding: "20px",
     },
   },
@@ -60,22 +60,37 @@ const useStyles = makeStyles({
     margin: "0 0 20px",
     display: "flex",
     flexWrap: "wrap",
+    wordBreak: "break-all",
     borderBottom: "1px solid lightgray",
+    "@media (max-width: 1080px)": {
+      fontSize: "36px",
+    },
     "@media (max-width: 900px)": {
       fontSize: "32px",
     },
-    "@media (max-width: 600px)": {
+    "@media (max-width: 620px)": {
+
       fontSize: "24px",
+    },
+    "@media (max-width: 488px)": {
+      fontSize: "16px",
     },
   },
   accent: {
     margin: "0 20px 0 0",
     color: "gray",
+    "@media (max-width: 1080px)": {
+      fontSize: "36px",
+    },
     "@media (max-width: 900px)": {
       fontSize: "32px",
     },
-    "@media (max-width: 600px)": {
+    "@media (max-width: 620px)": {
+      margin: "0 10px 0 0",
       fontSize: "24px",
+    },
+    "@media (max-width: 488px)": {
+      fontSize: "16px",
     },
   },
   iconButtons: {

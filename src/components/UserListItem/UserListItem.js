@@ -21,6 +21,7 @@ const useStyles = makeStyles({
   },
 
   text: {
+    wordBreak: "break-all",
     "@media (max-width: 448px)": {
       fontSize: "0.8rem",
     },

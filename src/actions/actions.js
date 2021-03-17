@@ -27,9 +27,16 @@ export const userDeleted = (userId) => {
 };
 
 export const userShown = (userId) => {
-  console.log(userId)
   return {
     type: "USER_SHOWN",
     payload: userId
   }
+};
+
+export const usersFiltered = (gender) => {
+  console.log(gender)
+ return {
+   type: "USERS__FILTERED",
+   payload: gender
+ }
 }
