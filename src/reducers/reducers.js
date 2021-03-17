@@ -38,9 +38,7 @@ const initialState = {
     },
   ],
 
-  filteredUsers: [
-
-  ],
+  filteredUsers: [],
 
   user: {
     name: "John",
@@ -126,7 +124,6 @@ const reducer = (state = initialState, action) => {
         (user) => user.gender === userGender
       );
 
-      console.log(userGender)
       return {
         ...state,
         filteredUsers: filteredUsers,

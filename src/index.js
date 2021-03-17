@@ -1,21 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 import { HashRouter, BrowserRouter as Router } from "react-router-dom";
-import { getUsers } from "./services/userListService";
-import { UserListProvider } from "./components/userListContext/userListContext";
-import store from "./store";
+import stores from "./store";
 import "./index.css";
 import App from "./App";
 
+const { store, persistor } = stores();
 
 ReactDOM.render(
   <Provider store={store}>
-    <UserListProvider value={getUsers}>
-      <HashRouter >
+    <PersistGate loading={null} persistor={persistor}>
+      <HashRouter>
         <App />
       </HashRouter>
-    </UserListProvider>
+    </PersistGate>
   </Provider>,
   document.getElementById("root")
 );

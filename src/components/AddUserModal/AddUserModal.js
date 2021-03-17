@@ -4,7 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import InputBase from "@material-ui/core/InputBase";
 import Button from "@material-ui/core/Button";
-import { v4 as uuidv4 } from 'uuid'
+import { v4 as uuidv4 } from "uuid";
 import { createStyles, makeStyles, withStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
@@ -85,7 +85,6 @@ const AddUserModal = ({ open, setOpen, handleAddUser }) => {
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
 
-
   const newUser = {
     id: uuidv4(),
     name: name,
@@ -142,7 +141,7 @@ const AddUserModal = ({ open, setOpen, handleAddUser }) => {
         />
 
         <NativeSelect
-        className={classes.select}
+          className={classes.select}
           id="select"
           required
           value={gender}

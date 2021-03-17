@@ -12,7 +12,6 @@ import WcIcon from "@material-ui/icons/Wc";
 import { Link } from "react-router-dom";
 import UserListItem from "../UserListItem/UserListItem";
 import AddUserModal from "../AddUserModal/AddUserModal";
-import withUserListService from "../HOC/withUserListService";
 import {
   usersLoaded,
   userAdded,
@@ -60,23 +59,21 @@ const useStyles = makeStyles({
       display: "none",
     },
   },
-  filterIcon : {
+  filterIcon: {
     position: "absolute",
-    top:"30px",
-    right: "30px"
-
-  }
+    top: "30px",
+    right: "30px",
+  },
 });
 
 function UserList({
   users,
   filteredUsers,
-  getUsers,
   usersLoaded,
   handleAddUser,
   handleDelete,
   handleUserShow,
-  handleFilter,
+  usersFiltered,
 }) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -88,7 +85,7 @@ function UserList({
   }, [filteredUsers]);
 
   useEffect(() => {
-    handleFilter(gender);
+    usersFiltered(gender);
     // eslint-disable-next-line
   }, [gender]);
 
@@ -96,7 +93,7 @@ function UserList({
     setOpen(true);
   };
 
-  const useFilter = () => {
+  const handleFilter = () => {
     if (gender === "") {
       setGender("Male");
     } else if (gender === "Male") {
@@ -132,12 +129,12 @@ function UserList({
   return (
     <Box className={classes.container}>
       <div>
-      <IconButton color="default" onClick={handleModal}>
-        <PersonAddIcon fontSize="large" />
-      </IconButton>
-      <IconButton color="default" onClick={useFilter} >
-        <WcIcon fontSize="large" />
-      </IconButton>
+        <IconButton color="default" onClick={handleModal}>
+          <PersonAddIcon fontSize="large" />
+        </IconButton>
+        <IconButton color="default" onClick={handleFilter}>
+          <WcIcon fontSize="large" />
+        </IconButton>
       </div>
       <List component="ul" className={classes.list}>
         {userElement}
@@ -169,12 +166,10 @@ const mapDispatchToProps = (dispatch) => {
     handleUserShow: (userId) => {
       dispatch(userShown(userId));
     },
-    handleFilter: (userGender) => {
+    usersFiltered: (userGender) => {
       dispatch(usersFiltered(userGender));
     },
   };
 };
 
-export default withUserListService()(
-  connect(mapStateToProps, mapDispatchToProps)(UserList)
-);
+export default connect(mapStateToProps, mapDispatchToProps)(UserList);

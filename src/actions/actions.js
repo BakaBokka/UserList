@@ -1,42 +1,41 @@
 export const usersLoaded = (newUsers) => {
   return {
-     type: 'USERS_LOADED',
-     payload: newUsers
+    type: "USERS_LOADED",
+    payload: newUsers,
   };
 };
 
 export const userAdded = (newUser) => {
   return {
     type: "USER_ADDED",
-    payload: newUser
-  }
+    payload: newUser,
+  };
 };
 
 export const userUpdated = (editedUser) => {
   return {
     type: "USER_UPDATED",
-    payload: editedUser
-  }
+    payload: editedUser,
+  };
 };
 
 export const userDeleted = (userId) => {
   return {
     type: "USER_DELETED",
-    payload: userId
-  }
+    payload: userId,
+  };
 };
 
 export const userShown = (userId) => {
   return {
     type: "USER_SHOWN",
-    payload: userId
-  }
+    payload: userId,
+  };
 };
 
 export const usersFiltered = (gender) => {
-  console.log(gender)
- return {
-   type: "USERS__FILTERED",
-   payload: gender
- }
-}
+  return {
+    type: "USERS__FILTERED",
+    payload: gender,
+  };
+};

@@ -8,7 +8,6 @@ import IconButton from "@material-ui/core/IconButton";
 import EditUserModal from "../EditUserModal/EditUserModal";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import withUserListService from "../HOC/withUserListService";
 import { userUpdated } from "../../actions/actions";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -69,7 +68,6 @@ const useStyles = makeStyles({
       fontSize: "32px",
     },
     "@media (max-width: 620px)": {
-
       fontSize: "24px",
     },
     "@media (max-width: 488px)": {
@@ -194,6 +192,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default withUserListService()(
-  connect(mapStateToProps, mapDispatchToProps)(UserPage)
-);
+export default connect(mapStateToProps, mapDispatchToProps)(UserPage);
