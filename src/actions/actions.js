@@ -12,6 +12,13 @@ export const userAdded = (newUser) => {
   }
 };
 
+export const userUpdated = (editedUser) => {
+  return {
+    type: "USER_UPDATED",
+    payload: editedUser
+  }
+};
+
 export const userDeleted = (userId) => {
   return {
     type: "USER_DELETED",

@@ -38,7 +38,11 @@ const initialState = {
     },
   ],
 
-  user: {},
+  user: {
+    name: "John",
+      email: "Doe",
+      gender: "Male",
+  },
 };
 
 const filterUsers = (users, userId) => {
@@ -70,6 +74,32 @@ const reducer = (state = initialState, action) => {
         ...state,
         users: [...state.users, newUser],
       };
+
+    case "USER_UPDATED":
+      const editedData = action.payload;
+      const editedUser = findUser(state.users, editedData.id);
+      console.log(editedUser)
+      const itemIndex = state.users.findIndex(
+        (user) => user.id === editedData.id
+      );
+      const item = state.users[itemIndex];
+      const editedUserData = {
+        ...item,
+        id: editedData.id,
+        name: editedData.name,
+        email: editedData.email,
+        gender: editedData.gender,
+      };
+
+      return {
+        ...state,
+        users: [
+          ...state.users.slice(0, itemIndex),
+          editedUserData,
+          ...state.users.slice(itemIndex + 1),
+        ],
+        user: editedUserData,
+      };
     case "USER_DELETED":
       const userId = action.payload;
       const newUsers = filterUsers(state.users, userId);
@@ -79,11 +109,11 @@ const reducer = (state = initialState, action) => {
       };
 
     case "USER_SHOWN":
-      const id = action.payload;
-      const user = findUser(state.users, id);
+      const showUserId = action.payload;
+      const showUser = findUser(state.users, showUserId);
       return {
         ...state,
-        user: user,
+        user: showUser,
       };
 
     default:

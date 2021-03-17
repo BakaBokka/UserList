@@ -4,7 +4,6 @@ import TextField from "@material-ui/core/TextField";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import InputBase from "@material-ui/core/InputBase";
 import Button from "@material-ui/core/Button";
-import { v4 as uuidv4 } from 'uuid'
 import { createStyles, makeStyles, withStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
@@ -12,7 +11,7 @@ const useStyles = makeStyles({
     position: "absolute",
     top: "50%",
     left: "50%",
-    width: "400px",
+    width: "320px",
     backgroundColor: "#fff",
     border: "2px solid lightgray",
     padding: "20px 30px 20px 20px",
@@ -77,16 +76,16 @@ const Input = withStyles((theme) =>
   })
 )(InputBase);
 
-const AddUserModal = ({ open, setOpen, handleAddUser }) => {
+const EditUserModal = ({ open, setOpen, user, handleEditUser }) => {
   const classes = useStyles();
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [gender, setGender] = useState("");
+  const [name, setName] = useState(user.name);
+  const [email, setEmail] = useState(user.email);
+  const [gender, setGender] = useState(user.gender);
 
 
-  const newUser = {
-    id: uuidv4(),
+  const editedUser = {
+    id: user.id,
     name: name,
     email: email,
     gender: gender,
@@ -111,7 +110,7 @@ const AddUserModal = ({ open, setOpen, handleAddUser }) => {
   };
 
   const handleClick = () => {
-    handleAddUser(newUser);
+    handleEditUser(editedUser);
     handleClose();
     setName("");
     setEmail("");
@@ -161,7 +160,7 @@ const AddUserModal = ({ open, setOpen, handleAddUser }) => {
           className={classes.button}
           onClick={handleClick}
         >
-          Add user
+          Edit user
         </Button>
       </form>
     </div>
@@ -179,4 +178,4 @@ const AddUserModal = ({ open, setOpen, handleAddUser }) => {
   );
 };
 
-export default AddUserModal;
+export default EditUserModal;

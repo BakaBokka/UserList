@@ -54,17 +54,18 @@ const useStyles = makeStyles({
   },
 });
 
-function UserList({ users, getUsers, usersLoaded, handleAddUser, handleDelete,handleUserShow }) {
+function UserList({ user, users, getUsers, usersLoaded, handleAddUser, handleDelete,handleUserShow }) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const data = users;
     usersLoaded(data);
+    user && handleUserShow(user.id)
 
 
     // eslint-disable-next-line
-  }, []);
+  }, [user]);
 
   const handleModal = () => {
     setOpen(true);

@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
-
 import EditIcon from "@material-ui/icons/Edit";
+import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn";
 import IconButton from "@material-ui/core/IconButton";
+import EditUserModal from "../EditUserModal/EditUserModal";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import withUserListService from "../HOC/withUserListService";
-import { userShown } from "../../actions/actions";
+import { userUpdated } from "../../actions/actions";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
@@ -22,7 +24,7 @@ const useStyles = makeStyles({
   },
   wrap: {
     height: "80vh",
-    maxWidth: "70%",
+    maxWidth: "fit-content",
     width: "100%",
     borderTopLeftRadius: "10px",
     borderTopRightRadius: "10px",
@@ -76,7 +78,7 @@ const useStyles = makeStyles({
       fontSize: "24px",
     },
   },
-  iconButton: {
+  iconButtons: {
     position: "absolute",
     bottom: 50,
     right: 50,
@@ -91,9 +93,16 @@ const useStyles = makeStyles({
   },
 });
 
-function UserPage({ user }) {
+function UserPage({ user, handleEditUser }) {
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
+
   console.log(user);
+
+  const handleModal = () => {
+    setOpen(true);
+  };
+
   return (
     <>
       <Container className={classes.container}>
@@ -136,11 +145,23 @@ function UserPage({ user }) {
                 {user.gender}
               </Typography>
             </Box>
-            <IconButton className={classes.iconButton} aria-label="edit">
-              <EditIcon fontSize="large" />
-            </IconButton>
+            <div className={classes.iconButtons}>
+              <IconButton aria-label="edit" onClick={handleModal}>
+                <EditIcon fontSize="large" />
+              </IconButton>
+
+              <IconButton aria-label="done" to="/" component={Link}>
+                <AssignmentTurnedInIcon fontSize="large" />
+              </IconButton>
+            </div>
           </Box>
         </Box>
+        <EditUserModal
+          open={open}
+          setOpen={setOpen}
+          user={user}
+          handleEditUser={handleEditUser}
+        />
       </Container>
     </>
   );
@@ -152,8 +173,8 @@ const mapStateToProps = ({ user }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    userShown: (userId) => {
-      dispatch(userShown(userId));
+    handleEditUser: (data) => {
+      dispatch(userUpdated(data));
     },
   };
 };
