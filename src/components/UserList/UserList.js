@@ -12,7 +12,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import WcIcon from "@material-ui/icons/Wc";
 import { Link } from "react-router-dom";
 import UserListItem from "../UserListItem/UserListItem";
-import AddUserModal from "../AddUserModal/AddUserModal";
+import UserListModal from "../UserListModal/UserListModal";
 import {
   usersLoaded,
   userAdded,
@@ -148,10 +148,10 @@ function UserList({
       <List component="ul" className={classes.list}>
         {userElement}
       </List>
-      <AddUserModal
+      <UserListModal
         open={open}
         setOpen={setOpen}
-        handleAddUser={handleAddUser}
+        handler={handleAddUser}
       />
     </Box>
   );

@@ -6,7 +6,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
-import EditUserModal from "../EditUserModal/EditUserModal";
+import UserListModal from "../UserListModal/UserListModal";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { userUpdated } from "../../actions/actions";
@@ -172,11 +172,11 @@ function UserPage({ user, handleEditUser }) {
             </div>
           </Box>
         </Box>
-        <EditUserModal
+        <UserListModal
           open={open}
           setOpen={setOpen}
           user={user}
-          handleEditUser={handleEditUser}
+          handler={handleEditUser}
         />
       </Container>
     </>

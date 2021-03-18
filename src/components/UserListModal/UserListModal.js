@@ -78,15 +78,15 @@ const Input = withStyles((theme) =>
   })
 )(InputBase);
 
-const AddUserModal = ({ open, setOpen, handleAddUser }) => {
+const UserListModal = ({ open, setOpen, user, handler }) => {
   const classes = useStyles();
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [gender, setGender] = useState("");
+  const [name, setName] = useState(user ? user.name : "");
+  const [email, setEmail] = useState(user ? user.email : "");
+  const [gender, setGender] = useState(user ? user.gender : "");
 
   const newUser = {
-    id: uuidv4(),
+    id: user ? user.id : uuidv4(),
     name: name,
     email: email,
     gender: gender,
@@ -94,9 +94,11 @@ const AddUserModal = ({ open, setOpen, handleAddUser }) => {
 
   const handleClose = () => {
     setOpen(false);
-    setName("");
-    setEmail("");
-    setGender("");
+    if (!user) {
+      setName("");
+      setEmail("");
+      setGender("");
+    }
   };
 
   //Обработчики инпутов
@@ -111,11 +113,13 @@ const AddUserModal = ({ open, setOpen, handleAddUser }) => {
   };
 
   const handleClick = () => {
-    handleAddUser(newUser);
+    handler(newUser);
     handleClose();
-    setName("");
-    setEmail("");
-    setGender("");
+    if (!user) {
+      setName("");
+      setEmail("");
+      setGender("");
+    }
   };
 
   const body = (
@@ -161,7 +165,7 @@ const AddUserModal = ({ open, setOpen, handleAddUser }) => {
           className={classes.button}
           onClick={handleClick}
         >
-          Add user
+        { user ? "Edit user": "Add user"}
         </Button>
       </form>
     </div>
@@ -179,4 +183,4 @@ const AddUserModal = ({ open, setOpen, handleAddUser }) => {
   );
 };
 
-export default AddUserModal;
+export default UserListModal;
