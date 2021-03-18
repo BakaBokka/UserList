@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import Modal from "@material-ui/core/Modal";
 import TextField from "@material-ui/core/TextField";
-import NativeSelect from "@material-ui/core/NativeSelect";
-import InputBase from "@material-ui/core/InputBase";
+
 import Button from "@material-ui/core/Button";
 import { v4 as uuidv4 } from "uuid";
-import { createStyles, makeStyles, withStyles } from "@material-ui/core/styles";
+import { useFormik } from "formik";
+import validationSchema from "../../validation/validaton";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   paper: {
@@ -33,6 +34,7 @@ const useStyles = makeStyles({
   },
 
   select: {
+    width: "50%",
     marginTop: "10px",
   },
 
@@ -42,130 +44,94 @@ const useStyles = makeStyles({
   },
 });
 
-const Input = withStyles((theme) =>
-  createStyles({
-    root: {
-      "label + &": {
-        marginTop: theme.spacing(3),
-      },
-    },
-    input: {
-      borderRadius: 4,
-      position: "relative",
-      backgroundColor: theme.palette.background.paper,
-      border: "1px solid #ced4da",
-      fontSize: 16,
-      padding: "10px 26px 10px 12px",
-      transition: theme.transitions.create(["border-color", "box-shadow"]),
-      fontFamily: [
-        "-apple-system",
-        "BlinkMacSystemFont",
-        '"Segoe UI"',
-        "Roboto",
-        '"Helvetica Neue"',
-        "Arial",
-        "sans-serif",
-        '"Apple Color Emoji"',
-        '"Segoe UI Emoji"',
-        '"Segoe UI Symbol"',
-      ].join(","),
-      "&:focus": {
-        borderRadius: 4,
-        borderColor: "#80bdff",
-        boxShadow: "0 0 0 0.2rem rgba(0,123,255,.25)",
-      },
-    },
-  })
-)(InputBase);
-
 const UserListModal = ({ open, setOpen, user, handler }) => {
   const classes = useStyles();
 
-  const [name, setName] = useState(user ? user.name : "");
-  const [email, setEmail] = useState(user ? user.email : "");
-  const [gender, setGender] = useState(user ? user.gender : "");
+  const formik = useFormik({
+    initialValues: {
+      name: user ? user.name : "",
+      email: user ? user.email : "",
+      gender: user ? user.gender : "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      handler(newUser);
+      handleClose();
+    },
+  });
 
   const newUser = {
     id: user ? user.id : uuidv4(),
-    name: name,
-    email: email,
-    gender: gender,
+    name: formik.values.name,
+    email: formik.values.email,
+    gender: formik.values.gender,
   };
 
   const handleClose = () => {
     setOpen(false);
     if (!user) {
-      setName("");
-      setEmail("");
-      setGender("");
+      formik.resetForm();
     }
   };
 
-  //Обработчики инпутов
-  const handleInput = (e) => {
-    setName(e.target.value);
-  };
-  const handleLastNameInput = (e) => {
-    setEmail(e.target.value);
-  };
-  const handleGenderSelect = (e) => {
-    setGender(e.target.value);
-  };
-
-  const handleClick = () => {
-    handler(newUser);
-    handleClose();
-    if (!user) {
-      setName("");
-      setEmail("");
-      setGender("");
-    }
-  };
-
+  console.log(formik.values);
   const body = (
     <div className={classes.paper}>
-      <form className={classes.form} noValidate autoComplete="off">
+      <form
+        className={classes.form}
+        noValidate
+        autoComplete="off"
+        onSubmit={formik.handleSubmit}
+      >
         <TextField
           id="name"
           label="Name"
+          name="name"
           className={classes.input}
           autoFocus
-          required
-          value={name}
-          onChange={(e) => handleInput(e)}
+          value={formik.values.name}
+          onChange={formik.handleChange}
+          error={formik.touched.name && Boolean(formik.errors.name)}
+          helperText={formik.touched.name && formik.errors.name}
         />
         <TextField
           id="email"
           type="email"
           label="Email"
+          name="email"
           className={classes.input}
-          required
-          value={email}
-          onChange={(e) => handleLastNameInput(e)}
+          value={formik.values.email}
+          onChange={formik.handleChange}
+          error={formik.touched.email && Boolean(formik.errors.email)}
+          helperText={formik.touched.email && formik.errors.email}
         />
 
-        <NativeSelect
+        <TextField
           className={classes.select}
-          id="select"
-          required
-          value={gender}
-          onChange={handleGenderSelect}
-          input={<Input />}
+          id="gender"
+          label="Gender"
+          name="gender"
+          value={formik.values.gender}
+          onChange={formik.handleChange}
+          select
+          error={formik.touched.gender && Boolean(formik.errors.gender)}
+          helperText={formik.touched.gender && formik.errors.gender}
+          SelectProps={{
+            native: true,
+          }}
         >
-          <option value={""} disabled>
-            Gender
-          </option>
+          <option value={""} disabled></option>
           <option value={"Female"}>Female</option>
           <option value={"Male"}>Male</option>
-        </NativeSelect>
+        </TextField>
 
         <Button
           variant="outlined"
           size="small"
           className={classes.button}
-          onClick={handleClick}
+          type="submit"
         >
-        { user ? "Edit user": "Add user"}
+          {user ? "Edit user" : "Add user"}
         </Button>
       </form>
     </div>
