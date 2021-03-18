@@ -29,7 +29,6 @@ const useStyles = makeStyles({
     height: "80vh",
     maxWidth: "70%",
     width: "100%",
-    padding: "0 20px 0 0",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -40,7 +39,6 @@ const useStyles = makeStyles({
   },
   header: {
     padding: "0 0 10px",
-
     display: "flex",
     justifyContent: "center",
     boxSizing: "border-box",
@@ -49,6 +47,7 @@ const useStyles = makeStyles({
   content: {
     overflowY: "scroll",
     width: "100%",
+    padding: "0 20px 0 0",
   },
   list: {
     maxWidth: "100%",
