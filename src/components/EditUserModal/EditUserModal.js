@@ -84,7 +84,6 @@ const EditUserModal = ({ open, setOpen, user, handleEditUser }) => {
   const [email, setEmail] = useState(user.email);
   const [gender, setGender] = useState(user.gender);
 
-
   const editedUser = {
     id: user.id,
     name: name,
@@ -94,9 +93,6 @@ const EditUserModal = ({ open, setOpen, user, handleEditUser }) => {
 
   const handleClose = () => {
     setOpen(false);
-    // setName("");
-    // setEmail("");
-    // setGender("");
   };
 
   //Обработчики инпутов
@@ -113,9 +109,6 @@ const EditUserModal = ({ open, setOpen, user, handleEditUser }) => {
   const handleClick = () => {
     handleEditUser(editedUser);
     handleClose();
-    // setName("");
-    // setEmail("");
-    // setGender("");
   };
 
   const body = (
@@ -141,7 +134,7 @@ const EditUserModal = ({ open, setOpen, user, handleEditUser }) => {
         />
 
         <NativeSelect
-        className={classes.select}
+          className={classes.select}
           id="select"
           required
           value={gender}

@@ -8,6 +8,7 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import IconButton from "@material-ui/core/IconButton";
+import Tooltip from "@material-ui/core/Tooltip";
 import WcIcon from "@material-ui/icons/Wc";
 import { Link } from "react-router-dom";
 import UserListItem from "../UserListItem/UserListItem";
@@ -111,6 +112,7 @@ function UserList({
           <UserListItem user={user} />
         </div>
         <div>
+        <Tooltip disableFocusListener disableTouchListener title="Go user page">
           <IconButton
             to="/user"
             component={Link}
@@ -118,9 +120,12 @@ function UserList({
           >
             <VisibilityIcon fontSize="large" />
           </IconButton>
+          </Tooltip>
+          <Tooltip disableFocusListener disableTouchListener title="Delete user">
           <IconButton onClick={() => handleDelete(user.id)}>
             <HighlightOffIcon fontSize="large" />
           </IconButton>
+          </Tooltip>
         </div>
       </ListItem>
     );
@@ -129,12 +134,16 @@ function UserList({
   return (
     <Box className={classes.container}>
       <div>
-        <IconButton color="default" onClick={handleModal}>
-          <PersonAddIcon fontSize="large" />
-        </IconButton>
+        <Tooltip disableFocusListener disableTouchListener placement="left-start" title="Add new user">
+          <IconButton color="default" onClick={handleModal}>
+            <PersonAddIcon fontSize="large" />
+          </IconButton>
+        </Tooltip>
+        <Tooltip disableFocusListener disableTouchListener placement="right-start" title="Filter by gender">
         <IconButton color="default" onClick={handleFilter}>
           <WcIcon fontSize="large" />
         </IconButton>
+        </Tooltip>
       </div>
       <List component="ul" className={classes.list}>
         {userElement}

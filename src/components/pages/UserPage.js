@@ -5,6 +5,7 @@ import Box from "@material-ui/core/Box";
 import EditIcon from "@material-ui/icons/Edit";
 import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn";
 import IconButton from "@material-ui/core/IconButton";
+import Tooltip from "@material-ui/core/Tooltip";
 import EditUserModal from "../EditUserModal/EditUserModal";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -34,7 +35,6 @@ const useStyles = makeStyles({
     boxSizing: "border-box",
     "@media (max-width: 600px)": {
       height: "50vh",
-      // maxWidth: "90%",
       padding: "20px",
     },
   },
@@ -159,13 +159,16 @@ function UserPage({ user, handleEditUser }) {
               </Typography>
             </Box>
             <div className={classes.iconButtons}>
+            <Tooltip disableFocusListener disableTouchListener title="Edit user">
               <IconButton aria-label="edit" onClick={handleModal}>
                 <EditIcon fontSize="large" />
               </IconButton>
-
+              </Tooltip>
+              <Tooltip disableFocusListener disableTouchListener title="Go main page">
               <IconButton aria-label="done" to="/" component={Link}>
                 <AssignmentTurnedInIcon fontSize="large" />
               </IconButton>
+              </Tooltip>
             </div>
           </Box>
         </Box>
