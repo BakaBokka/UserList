@@ -74,7 +74,6 @@ const UserListModal = ({ open, setOpen, user, handler }) => {
     }
   };
 
-  console.log(formik.values);
   const body = (
     <div className={classes.paper}>
       <form

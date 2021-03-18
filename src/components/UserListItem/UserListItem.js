@@ -17,15 +17,14 @@ const useStyles = makeStyles({
 
     "@media (max-width: 448px)": {
       fontSize: "1rem",
-      textAlign: "center"
+      textAlign: "center",
     },
   },
 
   text: {
     wordBreak: "break-all",
     "@media (max-width: 448px)": {
-      fontSize: "0.8rem",
-      textAlign: "center"
+      textAlign: "center",
     },
   },
 });

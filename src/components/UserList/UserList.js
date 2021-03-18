@@ -26,11 +26,29 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles({
   container: {
     position: "relative",
+    height: "80vh",
     maxWidth: "70%",
     width: "100%",
+    padding: "0 20px 0 0",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+
+    "@media (max-width: 480px)": {
+      maxWidth: "90%",
+    },
+  },
+  header: {
+    padding: "0 0 10px",
+
+    display: "flex",
+    justifyContent: "center",
+    boxSizing: "border-box",
+    width: "100%",
+  },
+  content: {
+    overflowY: "scroll",
+    width: "100%",
   },
   list: {
     maxWidth: "100%",
@@ -112,19 +130,27 @@ function UserList({
           <UserListItem user={user} />
         </div>
         <div>
-        <Tooltip disableFocusListener disableTouchListener title="Go user page">
-          <IconButton
-            to="/user"
-            component={Link}
-            onClick={() => handleUserShow(user.id)}
+          <Tooltip
+            disableFocusListener
+            disableTouchListener
+            title="Go user page"
           >
-            <VisibilityIcon fontSize="large" />
-          </IconButton>
+            <IconButton
+              to="/user"
+              component={Link}
+              onClick={() => handleUserShow(user.id)}
+            >
+              <VisibilityIcon fontSize="large" />
+            </IconButton>
           </Tooltip>
-          <Tooltip disableFocusListener disableTouchListener title="Delete user">
-          <IconButton onClick={() => handleDelete(user.id)}>
-            <HighlightOffIcon fontSize="large" />
-          </IconButton>
+          <Tooltip
+            disableFocusListener
+            disableTouchListener
+            title="Delete user"
+          >
+            <IconButton onClick={() => handleDelete(user.id)}>
+              <HighlightOffIcon fontSize="large" />
+            </IconButton>
           </Tooltip>
         </div>
       </ListItem>
@@ -133,26 +159,34 @@ function UserList({
 
   return (
     <Box className={classes.container}>
-      <div>
-        <Tooltip disableFocusListener disableTouchListener placement="left-start" title="Add new user">
+      <header className={classes.header}>
+        <Tooltip
+          disableFocusListener
+          disableTouchListener
+          placement="left-start"
+          title="Add new user"
+        >
           <IconButton color="default" onClick={handleModal}>
             <PersonAddIcon fontSize="large" />
           </IconButton>
         </Tooltip>
-        <Tooltip disableFocusListener disableTouchListener placement="right-start" title="Filter by gender">
-        <IconButton color="default" onClick={handleFilter}>
-          <WcIcon fontSize="large" />
-        </IconButton>
+        <Tooltip
+          disableFocusListener
+          disableTouchListener
+          placement="right-start"
+          title="Filter by gender"
+        >
+          <IconButton color="default" onClick={handleFilter}>
+            <WcIcon fontSize="large" />
+          </IconButton>
         </Tooltip>
-      </div>
-      <List component="ul" className={classes.list}>
-        {userElement}
-      </List>
-      <UserListModal
-        open={open}
-        setOpen={setOpen}
-        handler={handleAddUser}
-      />
+      </header>
+      <Box className={classes.content}>
+        <List component="ul" className={classes.list}>
+          {userElement}
+        </List>
+        <UserListModal open={open} setOpen={setOpen} handler={handleAddUser} />
+      </Box>
     </Box>
   );
 }

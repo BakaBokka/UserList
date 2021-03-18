@@ -22,10 +22,13 @@ const useStyles = makeStyles({
     flexDirection: "column",
     alignItems: "center",
   },
-  wrap: {
+  main: {
     height: "80vh",
     maxWidth: "fit-content",
     width: "100%",
+    display: "flex",
+    flexDirection: "column",
+
     borderTopLeftRadius: "10px",
     borderTopRightRadius: "10px",
     backgroundColor: "#4b4b4b",
@@ -40,7 +43,6 @@ const useStyles = makeStyles({
   },
 
   content: {
-    position: "relative",
     height: "100%",
     display: "flex",
     flexDirection: "column",
@@ -51,6 +53,7 @@ const useStyles = makeStyles({
     boxSizing: "border-box",
   },
   textBox: {
+    height: "100%",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -91,26 +94,15 @@ const useStyles = makeStyles({
       fontSize: "16px",
     },
   },
-  iconButtons: {
-    position: "absolute",
-    bottom: 50,
-    right: 50,
-    "@media (max-width: 600px)": {
-      bottom: 20,
-      right: 20,
-    },
-    "@media (max-width: 400px)": {
-      bottom: 10,
-      right: 10,
-    },
+  footer: {
+    display: " flex",
+    justifyContent: "flex-end",
   },
 });
 
 function UserPage({ user, handleEditUser }) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-
-  console.log(user);
 
   const handleModal = () => {
     setOpen(true);
@@ -122,7 +114,8 @@ function UserPage({ user, handleEditUser }) {
         <Typography className={classes.title} variant="h3" component="h1">
           User page
         </Typography>
-        <Box className={classes.wrap}>
+
+        <Box className={classes.main}>
           <Box className={classes.content}>
             <Box className={classes.textBox}>
               <Typography className={classes.text} variant="h2" component="p">
@@ -158,18 +151,26 @@ function UserPage({ user, handleEditUser }) {
                 {user.gender}
               </Typography>
             </Box>
-            <div className={classes.iconButtons}>
-            <Tooltip disableFocusListener disableTouchListener title="Edit user">
-              <IconButton aria-label="edit" onClick={handleModal}>
-                <EditIcon fontSize="large" />
-              </IconButton>
+            <footer className={classes.footer}>
+              <Tooltip
+                disableFocusListener
+                disableTouchListener
+                title="Edit user"
+              >
+                <IconButton aria-label="edit" onClick={handleModal}>
+                  <EditIcon fontSize="large" />
+                </IconButton>
               </Tooltip>
-              <Tooltip disableFocusListener disableTouchListener title="Go main page">
-              <IconButton aria-label="done" to="/" component={Link}>
-                <AssignmentTurnedInIcon fontSize="large" />
-              </IconButton>
+              <Tooltip
+                disableFocusListener
+                disableTouchListener
+                title="Go main page"
+              >
+                <IconButton aria-label="done" to="/" component={Link}>
+                  <AssignmentTurnedInIcon fontSize="large" />
+                </IconButton>
               </Tooltip>
-            </div>
+            </footer>
           </Box>
         </Box>
         <UserListModal
