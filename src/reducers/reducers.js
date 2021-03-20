@@ -2,39 +2,40 @@ const initialState = {
   users: [
     {
       id: 1,
-      name: "Bartlett Surgey",
-      email: "bsurgey0@goo.gl",
-      gender: "Male",
+      name: "Alma Vivien",
+      email: "avivien0@cmu.edu",
+      gender: "Female",
+      avatar:
+        "https://robohash.org/architectoveritatissit.jpg?size=200x200&set=set1",
     },
     {
       id: 2,
-      name: "Aileen Leathley",
-      email: "aleathley1@livejournal.com",
+      name: "Nesta Adame",
+      email: "nadame1@so-net.ne.jp",
       gender: "Female",
+      avatar: "https://robohash.org/eaadomnis.jpg?size=200x200&set=set1",
     },
     {
       id: 3,
-      name: "Gunter Getley",
-      email: "ggetley2@gravatar.com",
+      name: "Tootsie MacDonald",
+      email: "tmacdonald2@indiegogo.com",
       gender: "Male",
+      avatar: "https://robohash.org/totameumcumque.jpg?size=200x200&set=set1",
     },
     {
       id: 4,
-      name: "Tomlin Claybourne",
-      email: "tclaybourne3@huff.com",
+      name: "Marline Clilverd",
+      email: "mclilverd3@topsy.com",
       gender: "Male",
+      avatar: "https://robohash.org/autharummagnam.jpg?size=200x200&set=set1",
     },
     {
       id: 5,
-      name: "Gian Faltskog",
-      email: "gfaltskog4@eepurl.com",
+      name: "Irena Tann",
+      email: "itann4@china.com.cn",
       gender: "Male",
-    },
-    {
-      id: 6,
-      name: "Bernhard Nicholson",
-      email: "bn@buzzfeed.com",
-      gender: "Male",
+      avatar:
+        "https://robohash.org/repudiandaeperspiciatisnon.jpg?size=200x200&set=set1",
     },
   ],
 
@@ -44,6 +45,7 @@ const initialState = {
     name: "John",
     email: "Doe",
     gender: "Male",
+    avatar: "https://robohash.org/Johndoe.jpg?size=300x300&set=set1",
   },
 };
 
@@ -70,6 +72,7 @@ const reducer = (state = initialState, action) => {
         name: data.name,
         email: data.email,
         gender: data.gender,
+        avatar: data.avatar
       };
 
       return {
@@ -91,6 +94,7 @@ const reducer = (state = initialState, action) => {
         name: editedData.name,
         email: editedData.email,
         gender: editedData.gender,
+        avatar: editedData.avatar
       };
 
       return {

@@ -23,12 +23,10 @@ const useStyles = makeStyles({
     alignItems: "center",
   },
   main: {
-    height: "80vh",
     maxWidth: "fit-content",
     width: "100%",
     display: "flex",
     flexDirection: "column",
-
     borderTopLeftRadius: "10px",
     borderTopRightRadius: "10px",
     backgroundColor: "#4b4b4b",
@@ -37,7 +35,6 @@ const useStyles = makeStyles({
     padding: "30px",
     boxSizing: "border-box",
     "@media (max-width: 600px)": {
-      height: "50vh",
       padding: "20px",
     },
   },
@@ -47,16 +44,21 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
+    alignItems: "flex-start",
     border: "1px solid lightgray",
     backgroundColor: "#fff",
     padding: "50px 30px",
     boxSizing: "border-box",
+    "@media (max-width: 488px)": {
+      padding: "20px 20px",
+    },
   },
   textBox: {
     height: "100%",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
+    padding: "20px 0",
   },
   text: {
     margin: "0 0 20px",
@@ -95,8 +97,35 @@ const useStyles = makeStyles({
     },
   },
   footer: {
+    width: "100%",
     display: " flex",
     justifyContent: "flex-end",
+    backgroundColor: "#fff",
+  },
+
+  avatarWrap: {
+    border: "10px solid #4b4b4b",
+    borderRadius: "5px",
+    width: "220px",
+    height: "220px",
+    boxSizing: "border-box",
+    overflow: "hidden",
+    "@media (max-width: 620px)": {
+      width: "170px",
+      height: "170px",
+    },
+  },
+  avatar: {
+    width: "200px",
+    height: "200px",
+    transitionDuration: ".6s",
+    "&:hover": {
+      transform: "scale(1.1)",
+    },
+    "@media (max-width: 620px)": {
+      width: "150px",
+      height: "150px",
+    },
   },
 });
 
@@ -117,6 +146,14 @@ function UserPage({ user, handleEditUser }) {
 
         <Box className={classes.main}>
           <Box className={classes.content}>
+            <Box className={classes.avatarWrap}>
+              <img
+                className={classes.avatar}
+                src={user.avatar}
+                alt={user.name}
+              />
+            </Box>
+
             <Box className={classes.textBox}>
               <Typography className={classes.text} variant="h2" component="p">
                 <Typography
