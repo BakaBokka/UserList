@@ -1,8 +1,10 @@
 import React from "react";
 import Modal from "@material-ui/core/Modal";
 import TextField from "@material-ui/core/TextField";
-
 import Button from "@material-ui/core/Button";
+import Tooltip from "@material-ui/core/Tooltip";
+import IconButton from "@material-ui/core/IconButton";
+import CasinoIcon from "@material-ui/icons/Casino";
 import { v4 as uuidv4 } from "uuid";
 import { useFormik } from "formik";
 import validationSchema from "../../validation/validaton";
@@ -42,6 +44,12 @@ const useStyles = makeStyles({
     marginTop: "20px",
     maxWidth: "200px",
   },
+  avatarInput: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "90%",
+  },
 });
 
 const UserListModal = ({ open, setOpen, user, handler }) => {
@@ -52,6 +60,7 @@ const UserListModal = ({ open, setOpen, user, handler }) => {
       name: user ? user.name : "",
       email: user ? user.email : "",
       gender: user ? user.gender : "",
+      avatar: user ? user.avatar : "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -65,6 +74,7 @@ const UserListModal = ({ open, setOpen, user, handler }) => {
     name: formik.values.name,
     email: formik.values.email,
     gender: formik.values.gender,
+    avatar: formik.values.avatar,
   };
 
   const handleClose = () => {
@@ -72,6 +82,17 @@ const UserListModal = ({ open, setOpen, user, handler }) => {
     if (!user) {
       formik.resetForm();
     }
+  };
+
+  const handleRandomAvatar = () => {
+    const randomString =
+      Math.random().toString(36).substring(8) +
+      Math.random().toString(36).substring(8);
+    formik.setFieldValue(
+      "avatar",
+      `https://robohash.org/${randomString}.jpg?size=200x200&set=set1`,
+      false
+    );
   };
 
   const body = (
@@ -104,6 +125,28 @@ const UserListModal = ({ open, setOpen, user, handler }) => {
           error={formik.touched.email && Boolean(formik.errors.email)}
           helperText={formik.touched.email && formik.errors.email}
         />
+        <div className={classes.avatarInput}>
+          <TextField
+            id="avatar"
+            type="avatar"
+            label="Avatar"
+            name="avatar"
+            className={classes.input}
+            value={formik.values.avatar}
+            onChange={formik.handleChange}
+            error={formik.touched.avatar && Boolean(formik.errors.avatar)}
+            helperText={formik.touched.avatar && formik.errors.avatar}
+          />
+          <Tooltip
+            disableFocusListener
+            disableTouchListener
+            title="Random avatar"
+          >
+            <IconButton aria-label="random avatar" onClick={handleRandomAvatar}>
+              <CasinoIcon fontSize="small" color="disabled" />
+            </IconButton>
+          </Tooltip>
+        </div>
 
         <TextField
           className={classes.select}

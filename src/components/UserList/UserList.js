@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import Box from "@material-ui/core/Box";
-import PersonIcon from "@material-ui/icons/Person";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import WcIcon from "@material-ui/icons/Wc";
+import Avatar from "@material-ui/core/Avatar";
 import { Link } from "react-router-dom";
 import UserListItem from "../UserListItem/UserListItem";
 import UserListModal from "../UserListModal/UserListModal";
@@ -72,7 +71,11 @@ const useStyles = makeStyles({
     maxWidth: "100%",
     width: "fit-content",
   },
-  icon: {
+  avatar: {
+    margin: "0 24px 0 0",
+    width:"75px",
+    height: "75px",
+    transform: "rotateY(180deg)",
     "@media (max-width: 440px)": {
       display: "none",
     },
@@ -123,9 +126,11 @@ function UserList({
     return (
       <ListItem className={classes.item} key={user.id}>
         <div className={classes.itemInfo}>
-          <ListItemIcon className={classes.icon}>
-            <PersonIcon fontSize="large" />
-          </ListItemIcon>
+          <Avatar
+            className={classes.avatar}
+            alt="Remy Sharp"
+            src={user.avatar}
+          />
           <UserListItem user={user} />
         </div>
         <div>
